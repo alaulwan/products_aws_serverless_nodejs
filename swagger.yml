@@ -1,0 +1,78 @@
+---
+swagger: "2.0"
+info:
+  description: "Get and update products information"
+  version: "2021-06-08T22:03:33Z"
+  title: "dev-products-aws-nodejs"
+  termsOfService: "https://www.google.com"
+  contact:
+    name: "The contact person"
+    url: "https://www.serverless.com/framework"
+    email: "alaulwan@hotmail.com"
+  license:
+    name: "The license"
+    url: "https://www.github.com"
+host: "001n3v1ql1.execute-api.us-east-1.amazonaws.com"
+basePath: "/dev"
+schemes:
+- "https"
+paths:
+  /product:
+    get:
+      responses: {}
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+  /product/{ID}:
+    get:
+      parameters:
+      - name: "ID"
+        in: "path"
+        required: true
+        type: "string"
+      responses: {}
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+  /update:
+    get:
+      responses: {}
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"

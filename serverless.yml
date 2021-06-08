@@ -1,0 +1,101 @@
+service: products-aws-nodejs
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  profile: serverlessUser
+  environment:
+    tableName: ${self:custom.tableName}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource: '*'
+
+plugins:
+  - serverless-aws-documentation
+  - serverless-webpack
+
+package:
+  individually: true
+
+custom:
+  tableName: prodocts
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+    migration:
+      dir: offline/migrations
+  documentation:
+    # this is general info about the API
+    api:
+      info:
+        version: '2'
+        title: Products API
+        description: Get and update products information
+        termsOfService: https://www.google.com
+        contact:
+          name: The contact person
+          url: https://www.serverless.com/framework
+          email: alaulwan@hotmail.com
+        license:
+          name: The license
+          url: https://www.github.com
+
+functions:
+  scheduledFetchData:
+    handler: lambdas/scheduledFetchData.handler
+    name: scheduledFetchData
+    description: A function to fetch latest informations about products (it is also scheduled to run one time per hour)
+    memorySize: 512
+    timeout: 30
+    events:
+      - http:
+          path: update
+          method: GET
+          cors: true
+      - schedule: rate(1 hour)
+  getProducts:
+    handler: lambdas/getProducts.handler
+    name: getProducts
+    description: A function to get all products
+    memorySize: 512
+    events:
+      - http:
+          path: product
+          method: GET
+          cors: true
+  getProduct:
+    handler: lambdas/getProduct.handler
+    name: getProduct
+    description: A function to get one product by its id
+    memorySize: 512
+    events:
+      - http:
+          path: product/{ID}
+          method: GET
+          request:
+            parameters:
+              paths:
+                ID: true
+          cors: true
+          
+resources:
+  Resources:
+    ProdoctsDynamoDbTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.tableName}
+        AttributeDefinitions:
+          - AttributeName: ID
+            AttributeType: S
+        KeySchema:
+          - AttributeName: ID
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST

@@ -1,0 +1,29 @@
+{
+  "name": "products_aws_nodejs",
+  "version": "1.0.0",
+  "description": "products_aws_nodejs",
+  "main": "",
+  "jest": {
+    "verbose": true,
+    "preset": "@shelf/jest-dynamodb"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.923.0",
+    "axios": "^0.21.1",
+    "lambda-hooks": "^0.2.1",
+    "serverless-webpack": "^5.5.0",
+    "webpack": "^5.38.1",
+    "yup": "^0.32.9"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.14.4",
+    "@shelf/jest-dynamodb": "^1.8.1",
+    "jest": "^27.0.4",
+    "serverless-aws-documentation": "^1.1.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Alaa",
+  "license": "ISC"
+}
